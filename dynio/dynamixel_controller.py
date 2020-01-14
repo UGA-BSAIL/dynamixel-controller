@@ -102,7 +102,6 @@ class DynamixelMotor:
 
     def write_control_table(self, data_name, value):
         """Writes a value to a control table area of a specific name"""
-        print(*self.CONTROL_TABLE.get(data_name))
         self.dynamixel_io.write_control_table(self.PROTOCOL, self.dxl_id, value, *self.CONTROL_TABLE.get(data_name))
 
     def read_control_table(self, data_name):
