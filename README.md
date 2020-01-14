@@ -4,7 +4,7 @@ dynamixel-controller is a Python library designed from the ground up to work wit
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install dynamixel-controller.
 
 ```bash
 pip install dynamixel-controller
