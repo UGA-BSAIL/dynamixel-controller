@@ -41,6 +41,23 @@ If you are using a Protocol 2 motor set to run on Protocol 1
 custom_motor = dxl_io.new_motor(ID, JSON FILE, protocol=1, protocol_control_table=2)
 ```
 
+#### Motor Control:
+The most prevalent functions are pre-implemented as methods for the motor objects. 
+These include:
+```python
+motor.torque_enable()
+motor.torque_disable()
+motor.set_velocity_mode()
+motor.set_velocity(velocity)
+motor.set_position_mode()
+motor.set_position(position)
+position = motor.get_position()
+```
+All other values can be easily read from or written to using their [control table](http://emanual.robotis.com/) name. Example:
+```python
+motor.write_control_table("LED", 1) # Turns the LED on
+speed = motor.read_control_table("Present_Speed") # Returns present velocity
+```
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
