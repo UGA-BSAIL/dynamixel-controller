@@ -12,7 +12,7 @@ setup(
     install_requires=[
         'setuptools',
     ],
-    download_url='https://github.com/Jyumpp/dynamixel-controller/archive/v_01.tar.gz',
+    download_url='https://github.com/Jyumpp/dynamixel-controller/archive/dynamixel_controller-0.3.tar.gz',
     url="https://github.com/Jyumpp/dynamixel-controller",
     keywords="dynamixel, dxl, dynamixel_sdk, motor controller",
     classifiers=[
