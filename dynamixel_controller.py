@@ -13,15 +13,11 @@ class DynamixelIO:
             return
         self.port_handler = PortHandler(device_name)
         self.packet_handler = [PacketHandler(1), PacketHandler(2)]
-        if self.port_handler.setBaudRate(baud_rate):
-            print("Succeeded to change the baud rate")
-        else:
-            print("Failed to change the baud rate")
+        if not self.port_handler.setBaudRate(baud_rate):
+            raise (NameError("BaudChangeError"))
 
-        if self.port_handler.openPort():
-            print("Succeeded to open port!")
-        else:
-            print("Failed to open port")
+        if not self.port_handler.openPort():
+            raise (NameError("PortOpenError"))
 
     def __check_error(self, protocol, dxl_comm_result, dxl_error):
         """Prints when not successful"""
