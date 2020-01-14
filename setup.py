@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="dynamixel_controller",
-    version=0.1,
+    version=0.2,
     packages=find_packages(),
     author="Hunter Halloran (Jyumpp)",
     author_email="hdh20267@uga.edu",
@@ -10,8 +10,7 @@ setup(
         '': ['*.json'],
     },
     install_requires=[
-        'json',
-        'pkg_resources',
+        'setuptools',
     ],
     download_url='https://github.com/Jyumpp/dynamixel-controller/archive/v_01.tar.gz',
     url="https://github.com/Jyumpp/dynamixel-controller",
@@ -19,8 +18,8 @@ setup(
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
-        'Topic :: Software Development :: Build Tools',
-        'License :: Apache License'
+        'Topic :: Software Development :: Libraries',
+        'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
