@@ -23,10 +23,10 @@ dxl_io = d.DynamixelIO('portname') # your port for U2D2 or other serial device
 
 #### Pre-made motor declarations:
 ```python
-mx_2 = dxl_io.new_mx_2(1) # MX series protocol 2 with ID 1
-mx_12_1 = dxl_io.new_mx12_1(1) # MX-12 protocol 1 with ID 1
-mx_28_1 = dxl_io.new_mx28_1(1) # MX-28 protocol 1 with ID 1
-mx_64_1 = dxl_io.new_mx64_1(1) # MX-64 protocol 1 with ID 1
+mx_2 = dxl_io.new_mx_2(1)        # MX series protocol 2 with ID 1
+mx_12_1 = dxl_io.new_mx12_1(1)   # MX-12 protocol 1 with ID 1
+mx_28_1 = dxl_io.new_mx28_1(1)   # MX-28 protocol 1 with ID 1
+mx_64_1 = dxl_io.new_mx64_1(1)   # MX-64 protocol 1 with ID 1
 mx_106_1 = dxl_io.new_mx106_1(1) # MX-106 protocol 1 with ID 1
 ```
 
