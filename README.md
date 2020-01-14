@@ -32,7 +32,7 @@ mx_106_1 = dxl_io.new_mx106_1(1) # MX-106 protocol 1 with ID 1
 
 #### Custom motor declarations:
 These are made by creating a JSON file with the control table in it. 
-See [this](https://github.com/Jyumpp/dynamixel-controller/blob/master/dynio/DynamixelJSON/MX_Protocol_2.json) as an example.
+See [this](https://github.com/Jyumpp/dynamixel-controller/blob/master/example.json) as an example.
 ```python
 custom_motor = dxl_io.new_motor(ID, JSON FILE, PROTOCOL)
 ```
