@@ -173,7 +173,17 @@ class DynamixelMotor:
                 velocity += 1024
             self.write_control_table("Moving_Speed", velocity)
         elif self.CONTROL_TABLE_PROTOCOL == 2:
-            self.write_control_table("Goal_Velocity", velocity)
+            if self.read_control_table("Operating_Mode") == 1:
+                self.write_control_table("Goal_Velocity", velocity)
+            else:
+                self.write_control_table("Profile_Velocity", velocity)
+
+    def set_acceleration(self, acceleration):
+        """Sets the goal acceleration of the motor"""
+        if self.CONTROL_TABLE_PROTOCOL == 1:
+            self.write_control_table("Goal_Acceleration", acceleration)
+        elif self.CONTROL_TABLE_PROTOCOL == 2:
+            self.write_control_table("Profile_Acceleration", acceleration)
 
     def set_position(self, position):
         """Sets the goal position of the motor"""

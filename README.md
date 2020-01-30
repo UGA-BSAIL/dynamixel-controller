@@ -47,6 +47,7 @@ These include:
 ```python
 motor.torque_enable()
 motor.torque_disable()
+motor.set_acceleration(acceleration)
 motor.set_velocity_mode()
 motor.set_velocity(velocity)
 motor.set_position_mode()
