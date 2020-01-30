@@ -18,7 +18,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="dynamixel_controller",
-    version='0.4',
+    version='0.5',
     packages=find_packages(),
     author="Hunter Halloran (Jyumpp)",
     author_email="hdh20267@uga.edu",
@@ -28,7 +28,7 @@ setup(
     install_requires=[
         'setuptools',
     ],
-    download_url='https://github.com/Jyumpp/dynamixel-controller/archive/dynamixel_controller-0.4.tar.gz',
+    download_url='https://github.com/Jyumpp/dynamixel-controller/archive/dynamixel_controller-0.5.tar.gz',
     url="https://github.com/Jyumpp/dynamixel-controller",
     keywords="dynamixel, dxl, dynamixel_sdk, motor controller",
     classifiers=[
@@ -36,6 +36,8 @@ setup(
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Libraries',
         'License :: OSI Approved :: Apache Software License',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',

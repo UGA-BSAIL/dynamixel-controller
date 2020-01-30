@@ -13,7 +13,7 @@ pip install dynamixel-controller
 ## Usage
 #### Import:
 ```python
-import dynio.dynamixel_controller as d
+from dynio import dynamixel_controller as d
 ```
 
 #### Port handling:
@@ -50,6 +50,8 @@ motor.torque_disable()
 motor.set_velocity_mode()
 motor.set_velocity(velocity)
 motor.set_position_mode()
+motor.set_position(position)
+motor.set_extended_position_mode()
 motor.set_position(position)
 position = motor.get_position()
 ```

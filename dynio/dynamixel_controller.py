@@ -107,7 +107,7 @@ class DynamixelIO:
 class DynamixelMotor:
     """Creates the basis of individual motor objects"""
 
-    def __init__(self, dxl_id, dynamixel_io: DynamixelIO, json_file, protocol=1, control_table_protocol=None):
+    def __init__(self, dxl_id, dynamixel_io, json_file, protocol=1, control_table_protocol=None):
         if protocol == 1 or control_table_protocol is None:
             control_table_protocol = protocol
         self.CONTROL_TABLE_PROTOCOL = control_table_protocol
@@ -118,11 +118,13 @@ class DynamixelMotor:
 
     def write_control_table(self, data_name, value):
         """Writes a value to a control table area of a specific name"""
-        self.dynamixel_io.write_control_table(self.PROTOCOL, self.dxl_id, value, *self.CONTROL_TABLE.get(data_name))
+        self.dynamixel_io.write_control_table(self.PROTOCOL, self.dxl_id, value, self.CONTROL_TABLE.get(data_name)[0],
+                                              self.CONTROL_TABLE.get(data_name)[1])
 
     def read_control_table(self, data_name):
         """Reads the value from a control table area of a specific name"""
-        return self.dynamixel_io.read_control_table(self.PROTOCOL, self.dxl_id, *self.CONTROL_TABLE.get(data_name))
+        return self.dynamixel_io.read_control_table(self.PROTOCOL, self.dxl_id, self.CONTROL_TABLE.get(data_name)[0],
+                                                    self.CONTROL_TABLE.get(data_name)[1])
 
     def set_velocity_mode(self):
         """Sets the motor to run in velocity (wheel) mode"""
@@ -132,7 +134,7 @@ class DynamixelMotor:
         elif self.CONTROL_TABLE_PROTOCOL == 2:
             self.write_control_table("Operating_Mode", 1)
 
-    def set_position_mode(self, min_limit=None, max_limit=None):
+    def set_position_mode(self, min_limit=None, max_limit=None, goal_current=None):
         """Sets the motor to run in position (joint) mode"""
         if self.CONTROL_TABLE_PROTOCOL == 1:
             if min_limit is None or max_limit is None:
@@ -140,13 +142,28 @@ class DynamixelMotor:
                 max_limit = 4095
             self.write_control_table("CW_Angle_Limit", min_limit)
             self.write_control_table("CCW_Angle_Limit", max_limit)
-
+            if goal_current is not None:
+                self.write_control_table("Max_Torque", goal_current)
         elif self.CONTROL_TABLE_PROTOCOL == 2:
             self.write_control_table("Operating_Mode", 3)
             if min_limit is not None:
                 self.write_control_table("Min_Position_Limit", min_limit)
             if max_limit is not None:
                 self.write_control_table("Max_Position_Limit", max_limit)
+            if goal_current is not None:
+                self.write_control_table("Goal_Current", goal_current)
+
+    def set_extended_position_mode(self, goal_current=None):
+        """Sets the motor to run in extended position (multi-turn) mode"""
+        if self.CONTROL_TABLE_PROTOCOL == 1:
+            self.write_control_table("CW_Angle_Limit", 4095)
+            self.write_control_table("CCW_Angle_Limit", 4095)
+            if goal_current is not None:
+                self.write_control_table("Max_Torque", goal_current)
+        elif self.CONTROL_TABLE_PROTOCOL == 2:
+            self.write_control_table("Operating_Mode", 4)
+            if goal_current is not None:
+                self.write_control_table("Goal_Current", goal_current)
 
     def set_velocity(self, velocity):
         """Sets the goal velocity of the motor"""
