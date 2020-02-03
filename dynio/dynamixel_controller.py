@@ -1,5 +1,5 @@
 ################################################################################
-# Copyright 2020 Hunter Halloran
+# Copyright 2020 University of Georgia Bio-Sensing and Instrumentation Lab
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ################################################################################
+
+# Author: Hunter Halloran (Jyumpp)
 
 from dynamixel_sdk import *
 import json
