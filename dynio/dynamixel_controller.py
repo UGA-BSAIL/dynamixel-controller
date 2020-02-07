@@ -218,7 +218,11 @@ class DynamixelMotor:
     def get_current(self):
         """Returns the current motor load"""
         if self.CONTROL_TABLE_PROTOCOL == 1:
-            return self.read_control_table("Present_Load")
+            current = self.read_control_table("Present_Load")
+            if current > 1023:
+                current -= 1023
+                current *= -1
+            return current
         elif self.CONTROL_TABLE_PROTOCOL == 2:
             return self.read_control_table("Present_Current")
 
