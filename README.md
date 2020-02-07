@@ -13,16 +13,17 @@ pip install dynamixel-controller
 ## Usage
 #### Import:
 ```python
-from dynio import dynamixel_controller as d
+from dynio import *
 ```
 
 #### Port handling:
 ```python
-dxl_io = d.DynamixelIO('portname') # your port for U2D2 or other serial device
+dxl_io = dxl.DynamixelIO('portname') # your port for U2D2 or other serial device
 ```
 
 #### Pre-made motor declarations:
 ```python
+ax_12 = dxl_io.new_ax12_1(1)     # AX-12 protocol 1 with ID 1
 mx_2 = dxl_io.new_mx_2(1)        # MX series protocol 2 with ID 1
 mx_12_1 = dxl_io.new_mx12_1(1)   # MX-12 protocol 1 with ID 1
 mx_28_1 = dxl_io.new_mx28_1(1)   # MX-28 protocol 1 with ID 1
@@ -32,13 +33,14 @@ mx_106_1 = dxl_io.new_mx106_1(1) # MX-106 protocol 1 with ID 1
 
 #### Custom motor declarations:
 These are made by creating a JSON file with the control table in it. 
-See [this](https://github.com/Jyumpp/dynamixel-controller/blob/master/example.json) as an example.
+See [this](https://github.com/UGA-BSAIL/dynamixel-controller/blob/master/example.json) as an example.
 ```python
-custom_motor = dxl_io.new_motor(ID, JSON FILE, PROTOCOL)
+custom_motor = dxl_io.new_motor(ID, JSON FILE, PROTOCOL, min_position=MIN_POSITION, max_position=MAX_POSITION)
 ```
 If you are using a Protocol 2 motor set to run on Protocol 1
 ```python
-custom_motor = dxl_io.new_motor(ID, JSON FILE, protocol=1, protocol_control_table=2)
+custom_motor = dxl_io.new_motor(ID, JSON FILE, protocol=1, 
+                                protocol_control_table=2, min_position=MIN_POSITION, max_position=MAX_POSITION)
 ```
 
 #### Motor Control:
@@ -52,9 +54,12 @@ motor.set_velocity_mode()
 motor.set_velocity(velocity)
 motor.set_position_mode()
 motor.set_position(position)
+motor.set_angle(angle) 
 motor.set_extended_position_mode()
 motor.set_position(position)
 position = motor.get_position()
+angle = motor.get_angle()
+current = motor.get_current()
 ```
 All other values can be easily read from or written to using their [control table](http://emanual.robotis.com/) name. Example:
 ```python
