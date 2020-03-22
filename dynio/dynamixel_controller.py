@@ -83,7 +83,7 @@ class DynamixelIO:
     def new_ax12_1(self, dxl_id):
         return DynamixelMotor(dxl_id, self,
                               pkg_resources.resource_filename(__name__, "DynamixelJSON/AX12_Protocol_1.json"),
-                              max_position=1023)
+                              max_position=1023, max_angle=300)
 
     def new_mx_2(self, dxl_id, protocol=2):
         """Returns a new DynamixelMotor object of a given protocol for an MX series"""
@@ -115,7 +115,7 @@ class DynamixelMotor:
     """Creates the basis of individual motor objects"""
 
     def __init__(self, dxl_id, dynamixel_io, json_file, protocol=1, control_table_protocol=None,
-                 min_position=0, max_position=4095):
+                 min_position=0, max_position=4095, max_angle=360):
         if protocol == 1 or control_table_protocol is None:
             control_table_protocol = protocol
         self.CONTROL_TABLE_PROTOCOL = control_table_protocol
@@ -125,6 +125,7 @@ class DynamixelMotor:
         self.CONTROL_TABLE = json.load(open(json_file))
         self.min_position = min_position
         self.max_position = max_position
+        self.max_angle = max_angle
 
     def write_control_table(self, data_name, value):
         """Writes a value to a control table area of a specific name"""
@@ -205,7 +206,8 @@ class DynamixelMotor:
 
     def set_angle(self, angle):
         """Sets the goal position of the motor with a given angle in degrees"""
-        self.set_position(int(((angle / 360) * ((self.max_position + 1) - self.min_position)) + self.min_position))
+        self.set_position(
+            int(((angle / self.max_angle) * ((self.max_position + 1) - self.min_position)) + self.min_position))
 
     def get_position(self):
         """Returns the motor position"""
@@ -213,12 +215,15 @@ class DynamixelMotor:
 
     def get_angle(self):
         """Returns the motor position as an angle in degrees"""
-        return ((self.get_position() - self.min_position) / ((self.max_position + 1) - self.min_position)) * 360
+        return ((self.get_position() - self.min_position) / (
+                    (self.max_position + 1) - self.min_position)) * self.max_angle
 
     def get_current(self):
         """Returns the current motor load"""
         if self.CONTROL_TABLE_PROTOCOL == 1:
             current = self.read_control_table("Present_Load")
+            if current < 0:
+                return -1
             if current > 1023:
                 current -= 1023
                 current *= -1
