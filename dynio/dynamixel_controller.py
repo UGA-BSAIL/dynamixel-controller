@@ -19,10 +19,13 @@
 from dynamixel_sdk import *
 import json
 import pkg_resources
+import deprecation
 
 
 class DynamixelIO:
     """Creates communication handler for Dynamixel motors"""
+
+    __version__ = pkg_resources.require("dynamixel-controller")[0].version
 
     def __init__(self,
                  device_name='/dev/ttyUSB0',
@@ -80,52 +83,78 @@ class DynamixelIO:
         """Returns a new DynamixelMotor object of a given protocol with a given control table"""
         return DynamixelMotor(dxl_id, self, json_file, protocol, control_table_protocol)
 
+    def new_ax12(self, dxl_id):
+        return DynamixelMotor(dxl_id, self,
+                              pkg_resources.resource_filename(__name__, "DynamixelJSON/AX12.json"))
+
+    @deprecation.deprecated('0.8', '1.0', current_version=__version__,
+                            details="Use new_ax12() instead")
     def new_ax12_1(self, dxl_id):
         return DynamixelMotor(dxl_id, self,
-                              pkg_resources.resource_filename(__name__, "DynamixelJSON/AX12_Protocol_1.json"),
-                              max_position=1023, max_angle=300)
+                              pkg_resources.resource_filename(__name__, "DynamixelJSON/AX12.json"))
 
-    def new_mx_2(self, dxl_id, protocol=2):
+    @deprecation.deprecated('0.8', '1.0', current_version=__version__,
+                            details="Use the specific new motor function instead")
+    def new_mx_2(self, dxl_id):
         """Returns a new DynamixelMotor object of a given protocol for an MX series"""
         return DynamixelMotor(dxl_id, self,
-                              pkg_resources.resource_filename(__name__, "DynamixelJSON/MX_Protocol_2.json"),
-                              protocol, 2)
+                              pkg_resources.resource_filename(__name__, "DynamixelJSON/MX64.json"),
+                              2)
 
+    @deprecation.deprecated('0.8', '1.0', current_version=__version__,
+                            details="Use new_mx12() instead")
     def new_mx12_1(self, dxl_id):
         """Returns a new DynamixelMotor object for an MX12"""
         return DynamixelMotor(dxl_id, self,
-                              pkg_resources.resource_filename(__name__, "DynamixelJSON/MX12_28_Protocol_1.json"))
+                              pkg_resources.resource_filename(__name__, "DynamixelJSON/MX12.json"))
 
+    @deprecation.deprecated('0.8', '1.0', current_version=__version__,
+                            details="Use new_mx28() instead")
     def new_mx28_1(self, dxl_id):
         """Returns a new DynamixelMotor object for an MX28"""
         return self.new_mx12_1(dxl_id)
 
+    @deprecation.deprecated('0.8', '1.0', current_version=__version__,
+                            details="Use new_mx64() instead")
     def new_mx64_1(self, dxl_id):
         """Returns a new DynamixelMotor object for an MX64"""
         return DynamixelMotor(dxl_id, self,
-                              pkg_resources.resource_filename(__name__, "DynamixelJSON/MX64_Protocol_1.json"))
+                              pkg_resources.resource_filename(__name__, "DynamixelJSON/MX64.json"))
 
+    @deprecation.deprecated('0.8', '1.0', current_version=__version__,
+                            details="Use new_mx106() instead")
     def new_mx106_1(self, dxl_id):
         """Returns a new DynamixelMotor object for an MX106"""
         return DynamixelMotor(dxl_id, self,
-                              pkg_resources.resource_filename(__name__, "DynamixelJSON/MX106_Protocol_1.json"))
+                              pkg_resources.resource_filename(__name__, "DynamixelJSON/MX106.json"))
 
 
 class DynamixelMotor:
     """Creates the basis of individual motor objects"""
 
-    def __init__(self, dxl_id, dynamixel_io, json_file, protocol=1, control_table_protocol=None,
-                 min_position=0, max_position=4095, max_angle=360):
+    def __init__(self, dxl_id, dynamixel_io, json_file, protocol=1, control_table_protocol=None):
+        """Initializes a new DynamixelMotor object"""
         if protocol == 1 or control_table_protocol is None:
             control_table_protocol = protocol
+
+        config = json.load(open(json_file))
+        if control_table_protocol == 1:
+            config = config.get("Protocol_1")
+        else:
+            config = config.get("Protocol_2")
+
         self.CONTROL_TABLE_PROTOCOL = control_table_protocol
         self.dxl_id = dxl_id
         self.dynamixel_io = dynamixel_io
         self.PROTOCOL = protocol
-        self.CONTROL_TABLE = json.load(open(json_file))
-        self.min_position = min_position
-        self.max_position = max_position
-        self.max_angle = max_angle
+        self.CONTROL_TABLE = config.get("Control_Table")
+        self.min_position = config.get("Values").get("Min_Position")
+        self.max_position = config.get("Values").get("Max_Position")
+        self.max_angle = config.get("Values").get("Max_Angle")
+
+        print(self.min_position)
+        print(self.max_position)
+        print(self.max_angle)
 
     def write_control_table(self, data_name, value):
         """Writes a value to a control table area of a specific name"""
@@ -216,7 +245,7 @@ class DynamixelMotor:
     def get_angle(self):
         """Returns the motor position as an angle in degrees"""
         return ((self.get_position() - self.min_position) / (
-                    (self.max_position + 1) - self.min_position)) * self.max_angle
+                (self.max_position + 1) - self.min_position)) * self.max_angle
 
     def get_current(self):
         """Returns the current motor load"""

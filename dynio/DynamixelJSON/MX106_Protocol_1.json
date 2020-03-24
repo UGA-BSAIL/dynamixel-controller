@@ -27,6 +27,10 @@
     8,
     2
   ],
+  "Drive_Mode": [
+    10,
+    1
+  ],
   "Temperature_Limit": [
     11,
     1
