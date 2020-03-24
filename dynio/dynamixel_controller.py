@@ -84,12 +84,37 @@ class DynamixelIO:
         return DynamixelMotor(dxl_id, self, json_file, protocol, control_table_protocol)
 
     def new_ax12(self, dxl_id):
+        """Returns a new DynamixelMotor object for an AX12"""
         return DynamixelMotor(dxl_id, self,
                               pkg_resources.resource_filename(__name__, "DynamixelJSON/AX12.json"))
+
+    def new_mx12(self, dxl_id):
+        """Returns a new DynamixelMotor object for an MX12"""
+        return DynamixelMotor(dxl_id, self,
+                              pkg_resources.resource_filename(__name__, "DynamixelJSON/MX12.json"))
+
+    def new_mx28(self, dxl_id, protocol=1, control_table_protocol=None):
+        """Returns a new DynamixelMotor object for an MX28"""
+        return DynamixelMotor(dxl_id, self,
+                              pkg_resources.resource_filename(__name__, "DynamixelJSON/MX28.json"),
+                              protocol=protocol, control_table_protocol=control_table_protocol)
+
+    def new_mx64(self, dxl_id, protocol=1, control_table_protocol=None):
+        """Returns a new DynamixelMotor object for an MX64"""
+        return DynamixelMotor(dxl_id, self,
+                              pkg_resources.resource_filename(__name__, "DynamixelJSON/MX64.json"),
+                              protocol=protocol, control_table_protocol=control_table_protocol)
+
+    def new_mx106(self, dxl_id, protocol=1, control_table_protocol=None):
+        """Returns a new DynamixelMotor object for an MX106"""
+        return DynamixelMotor(dxl_id, self,
+                              pkg_resources.resource_filename(__name__, "DynamixelJSON/MX106.json"),
+                              protocol=protocol, control_table_protocol=control_table_protocol)
 
     @deprecation.deprecated('0.8', '1.0', current_version=__version__,
                             details="Use new_ax12() instead")
     def new_ax12_1(self, dxl_id):
+        """Returns a new DynamixelMotor object for an AX12"""
         return DynamixelMotor(dxl_id, self,
                               pkg_resources.resource_filename(__name__, "DynamixelJSON/AX12.json"))
 
