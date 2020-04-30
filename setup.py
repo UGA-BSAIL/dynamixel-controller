@@ -20,7 +20,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="dynamixel_controller",
-    version='0.8',
+    version='0.8.1',
     packages=find_packages(),
     author="Hunter Halloran (Jyumpp)",
     author_email="hdh20267@uga.edu",
@@ -32,9 +32,9 @@ setup(
         'pyserial',
         'deprecation',
     ],
-    download_url='https://github.com/UGA-BSAIL/dynamixel-controller/archive/dynamixel_controller-0.8.tar.gz',
+    download_url='https://github.com/UGA-BSAIL/dynamixel-controller/archive/dynamixel_controller-0.8.1.tar.gz',
     url="https://github.com/UGA-BSAIL/dynamixel-controller",
-    keywords="dynamixel, dxl, dynamixel_sdk, motor controller",
+    keywords="dynamixel, dxl, dynamixel_sdk, motor controller, robotis, motor, robot",
     classifiers=[
         'Development Status :: 2 - Beta',
         'Intended Audience :: Developers',
@@ -46,5 +46,7 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
     ]
 )
