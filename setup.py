@@ -32,6 +32,8 @@ setup(
         'pyserial',
         'deprecation',
     ],
+    long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
     download_url='https://github.com/UGA-BSAIL/dynamixel-controller/archive/dynamixel_controller-0.8.1.tar.gz',
     url="https://github.com/UGA-BSAIL/dynamixel-controller",
     keywords="dynamixel, dxl, dynamixel_sdk, motor controller, robotis, motor, robot",
