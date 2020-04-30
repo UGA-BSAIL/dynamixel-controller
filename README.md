@@ -22,28 +22,18 @@ dxl_io = dxl.DynamixelIO('portname') # your port for U2D2 or other serial device
 ```
 
 #### Pre-made motor declarations:
+See [documentation](https://github.com/UGA-BSAIL/dynamixel-controller/blob/moreJSON/docs.md) for full list of motors. 
+See below for sample:
 ```python
-ax_12 = dxl_io.new_ax12_1(1)     # AX-12 protocol 1 with ID 1
-mx_2 = dxl_io.new_mx_2(1)        # MX series protocol 2 with ID 1
-mx_12_1 = dxl_io.new_mx12_1(1)   # MX-12 protocol 1 with ID 1
-mx_28_1 = dxl_io.new_mx28_1(1)   # MX-28 protocol 1 with ID 1
-mx_64_1 = dxl_io.new_mx64_1(1)   # MX-64 protocol 1 with ID 1
-mx_106_1 = dxl_io.new_mx106_1(1) # MX-106 protocol 1 with ID 1
-```
-
-#### Custom motor declarations:
-These are made by creating a JSON file with the control table in it. 
-See [this](https://github.com/UGA-BSAIL/dynamixel-controller/blob/master/example.json) as an example.
-```python
-custom_motor = dxl_io.new_motor(ID, JSON FILE, PROTOCOL, min_position=MIN_POSITION, max_position=MAX_POSITION)
-```
-If you are using a Protocol 2 motor set to run on Protocol 1
-```python
-custom_motor = dxl_io.new_motor(ID, JSON FILE, protocol=1, 
-                                protocol_control_table=2, min_position=MIN_POSITION, max_position=MAX_POSITION)
+ax_12 = dxl_io.new_ax12(1)       # AX-12 protocol 1 with ID 1
+mx_64_1 = dxl_io.new_mx64(2, 1)  # MX-64 protocol 1 with ID 2
+mx_64_2 = dxl_io.new_mx64(3, 2)  # MX-64 protocol 2 with ID 3
 ```
 
 #### Motor Control:
+See [documentation](https://github.com/UGA-BSAIL/dynamixel-controller/blob/moreJSON/docs.md) for full list of functions 
+and their usage.
+
 The most prevalent functions are pre-implemented as methods for the motor objects. 
 These include:
 ```python
