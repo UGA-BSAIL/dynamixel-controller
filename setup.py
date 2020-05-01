@@ -20,7 +20,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="dynamixel_controller",
-    version='0.8.1',
+    version='0.8.2',
     packages=find_packages(),
     author="Hunter Halloran (Jyumpp)",
     author_email="hdh20267@uga.edu",
@@ -35,7 +35,7 @@ setup(
     description="A new tool for operating Dynamixel series motors!",
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
-    download_url='https://github.com/UGA-BSAIL/dynamixel-controller/archive/dynamixel_controller-0.8.1.tar.gz',
+    download_url='https://github.com/UGA-BSAIL/dynamixel-controller/archive/dynamixel_controller-0.8.2.tar.gz',
     url="https://github.com/UGA-BSAIL/dynamixel-controller",
     keywords="dynamixel, dxl, dynamixel_sdk, motor controller, robotis, motor, robot",
     classifiers=[
