@@ -1,0 +1,143 @@
+{
+  "Protocol_1": {
+    "Control_Table": {
+      "Model_Number": [
+        0,
+        2
+      ],
+      "Firmware_Version": [
+        2,
+        1
+      ],
+      "ID": [
+        3,
+        1
+      ],
+      "Baud_Rate": [
+        4,
+        1
+      ],
+      "Return_Delay_Time": [
+        5,
+        1
+      ],
+      "CW_Angle_Limit": [
+        6,
+        2
+      ],
+      "CCW_Angle_Limit": [
+        8,
+        2
+      ],
+      "Drive_Mode": [
+        10,
+        1
+      ],
+      "Temperature_Limit": [
+        11,
+        1
+      ],
+      "Min_Voltage_Limit": [
+        12,
+        1
+      ],
+      "Max_Voltage_Limit": [
+        13,
+        1
+      ],
+      "Max_Torque": [
+        14,
+        2
+      ],
+      "Status_Return_Level": [
+        16,
+        1
+      ],
+      "Alarm_LED": [
+        17,
+        1
+      ],
+      "Shutdown": [
+        18,
+        1
+      ],
+      "Torque_Enable": [
+        24,
+        1
+      ],
+      "LED": [
+        25,
+        1
+      ],
+      "D_Gain": [
+        26,
+        1
+      ],
+      "I_Gain": [
+        27,
+        1
+      ],
+      "P_Gain": [
+        28,
+        1
+      ],
+      "Goal_Position": [
+        30,
+        2
+      ],
+      "Moving_Speed": [
+        32,
+        2
+      ],
+      "Torque_Limit": [
+        34,
+        2
+      ],
+      "Present_Position": [
+        36,
+        2
+      ],
+      "Present_Speed": [
+        38,
+        2
+      ],
+      "Present_Load": [
+        40,
+        2
+      ],
+      "Present_Voltage": [
+        42,
+        1
+      ],
+      "Registered": [
+        44,
+        1
+      ],
+      "Moving": [
+        46,
+        1
+      ],
+      "Lock": [
+        47,
+        1
+      ],
+      "Punch": [
+        48,
+        2
+      ],
+      "Realtime_Tick": [
+        50,
+        2
+      ],
+      "Goal_Acceleration": [
+        73,
+        1
+      ]
+    },
+    "Values": {
+      "Min_Position": 0,
+      "Max_Position": 1023,
+      "Max_Angle": 300
+    }
+  }
+}
