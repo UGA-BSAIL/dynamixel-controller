@@ -22,10 +22,10 @@ namespace dynio {
 	DynamixelMotor::DynamixelMotor(c_int &dxlID, DynamixelIO *dxlIO, const string &jsonFile,
 	                               c_int &protocol, c_int &controlTableProtocol) {
 		if (protocol == 1 || controlTableProtocol == -1) {
-			CONTROL_TABLE_PROTOCOL = 1;
+			CONTROL_TABLE_PROTOCOL = protocol;
 		} else CONTROL_TABLE_PROTOCOL = controlTableProtocol;
 
-		std::ifstream jsonFileStream(jsonFile);
+		// std::ifstream jsonFileStream(jsonFile);
 		json config;
 		jsonFileStream >> config;
 
@@ -34,7 +34,7 @@ namespace dynio {
 				config = config.at("Protocol_1");
 			else
 				config = config.at("Protocol_2");
-
+			std::cout << config << std::endl;
 			DXL_ID = dxlID;
 			DXL_IO = dxlIO;
 			PROTOCOL = protocol;

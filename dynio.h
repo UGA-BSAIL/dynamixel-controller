@@ -58,7 +58,7 @@ namespace dynio {
 
 	private:
 		dynamixel::PortHandler *portHandler;
-		dynamixel::PacketHandler *packetHandler[2];
+		std::array<dynamixel::PacketHandler *, 2> packetHandler;
 
 		int checkError(c_int protocol, c_int dxlCommResult, const uint8_t &dxlError);
 	};
@@ -72,11 +72,11 @@ namespace dynio {
 
 		uint32_t readControlTable(const string &dataName);
 
-		void setVelocityMode(c_int goalCurrent=-1);
+		void setVelocityMode(c_int goalCurrent = -1);
 
-		void setPositionMode(int minLimit=-1, int maxLimit=-1, c_int goalCurrent=-1);
+		void setPositionMode(int minLimit = -1, int maxLimit = -1, c_int goalCurrent = -1);
 
-		void setExtendedPositionMode(c_int goalCurrent=-1);
+		void setExtendedPositionMode(c_int goalCurrent = -1);
 
 		void setVelocity(int velocity);
 

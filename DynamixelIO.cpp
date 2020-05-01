@@ -21,8 +21,8 @@
 namespace dynio {
 	DynamixelIO::DynamixelIO(const string &deviceName, c_int baudRate) {
 		portHandler = dynamixel::PortHandler::getPortHandler(deviceName.c_str());
-		packetHandler[0] = dynamixel::PacketHandler::getPacketHandler(1.0);
-		packetHandler[1] = dynamixel::PacketHandler::getPacketHandler(2.0);
+		packetHandler = {dynamixel::PacketHandler::getPacketHandler(1.0),
+		                 dynamixel::PacketHandler::getPacketHandler(2.0)};
 
 		if (!deviceName.empty()) {
 			if (!portHandler->openPort()) {
@@ -53,7 +53,7 @@ namespace dynio {
 		int dxlCommResult = 0;
 		uint8_t dxlError = 0;
 
-		std::cout << address << " " << size << std::endl;
+		// std::cout << "Write: " << address << " " << size << std::endl;
 
 		if (size == 1)
 			dxlCommResult = packetHandler[protocol - 1]->write1ByteTxRx(portHandler, dxlID, address, value, &dxlError);
@@ -70,6 +70,8 @@ namespace dynio {
 		int dxlCommResult = 0;
 		uint8_t dxlError = 0;
 		uint32_t retVal = 0;
+
+		// std::cout << "Read: " <<  address << " " << size << std::endl;
 
 		if (size == 1)
 			dxlCommResult = packetHandler[protocol - 1]->read1ByteTxRx(portHandler, dxlID, address,
