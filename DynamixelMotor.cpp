@@ -25,7 +25,7 @@ namespace dynio {
 			CONTROL_TABLE_PROTOCOL = protocol;
 		} else CONTROL_TABLE_PROTOCOL = controlTableProtocol;
 
-		// std::ifstream jsonFileStream(jsonFile);
+		std::ifstream jsonFileStream(jsonFile);
 		json config;
 		jsonFileStream >> config;
 
@@ -34,7 +34,7 @@ namespace dynio {
 				config = config.at("Protocol_1");
 			else
 				config = config.at("Protocol_2");
-			std::cout << config << std::endl;
+			// std::cout << config << std::endl;
 			DXL_ID = dxlID;
 			DXL_IO = dxlIO;
 			PROTOCOL = protocol;
