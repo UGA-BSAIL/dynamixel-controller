@@ -20,6 +20,7 @@
 #define DYNAMIXEL_CONTROLLER_DYNAMIXEL_H
 
 #include <iostream>
+#include <fstream>
 #include <nlohmann/json.hpp>
 #include "DynamixelSDK/src/DynamixelSDK.h"
 
@@ -29,13 +30,31 @@ using string=std::string;
 using json=nlohmann::json;
 
 namespace dynio {
+	class DynamixelMotor;
+
+	typedef std::unique_ptr<DynamixelMotor> dyn_ptr;
+
 	class DynamixelIO {
 	public:
 		explicit DynamixelIO(const string &deviceName = "/dev/ttyUSB0", c_int baudRate = 57600);
 
-		void writeControlTable(c_int protocol, c_int dxlId, c_int value, c_int address, c_int size);
+		~DynamixelIO();
 
-		uint32_t readControlTable(c_int protocol, c_int dxlId, c_int address, c_int size);
+		void writeControlTable(c_int protocol, c_int dxlID, c_int value, c_int address, c_int size);
+
+		uint32_t readControlTable(c_int protocol, c_int dxlID, c_int address, c_int size);
+
+		dyn_ptr newMotor(c_int dxlID, const string &jsonFile, int protocol = 1, c_int controlTableProtocol = -1);
+
+		dyn_ptr newAX12(c_int dxlID);
+
+		dyn_ptr newMX12(c_int dxlID);
+
+		dyn_ptr newMX28(c_int dxlID, c_int protocol = 1, c_int controlTableProtocol = -1);
+
+		dyn_ptr newMX64(c_int dxlID, c_int protocol = 1, c_int controlTableProtocol = -1);
+
+		dyn_ptr newMX106(c_int dxlID, c_int protocol = 1, c_int controlTableProtocol = -1);
 
 	private:
 		dynamixel::PortHandler *portHandler;
@@ -46,12 +65,40 @@ namespace dynio {
 
 	class DynamixelMotor {
 	public:
-		DynamixelMotor(c_int dxlId, const DynamixelIO &dxlIo, const string &jsonFile, c_int protocol = 1,
+		DynamixelMotor(c_int dxlID, DynamixelIO *dxlIO, const string &jsonFile, c_int protocol = 1,
 		               c_int controlTableProtocol = -1);
+
+		void writeControlTable(const string &dataName, c_int value);
+
+		uint32_t readControlTable(const string &dataName);
+
+		void setVelocityMode(c_int goalCurrent=-1);
+
+		void setPositionMode(int minLimit=-1, int maxLimit=-1, c_int goalCurrent=-1);
+
+		void setExtendedPositionMode(c_int goalCurrent=-1);
+
+		void setVelocity(int velocity);
+
+		void setAcceleration(c_int acceleration);
+
+		void setPosition(c_int position);
+
+		void setAngle(const float &angle);
+
+		uint32_t getPosition();
+
+		float getAngle();
+
+		uint32_t getCurrent();
+
+		void torqueEnable();
+
+		void torqueDisable();
 
 	private:
 		int CONTROL_TABLE_PROTOCOL, DXL_ID, PROTOCOL, MIN_POSITION, MAX_POSITION, MAX_ANGLE;
-		DynamixelIO DXL_IO;
+		DynamixelIO *DXL_IO;
 		json CONTROL_TABLE;
 	};
 
