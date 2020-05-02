@@ -58,7 +58,7 @@ namespace dynio {
 
 	private:
 		dynamixel::PortHandler *portHandler;
-		std::array<dynamixel::PacketHandler *, 2> packetHandler{}{}{};
+		std::array<dynamixel::PacketHandler *, 2> packetHandler{};
 
 		int checkError(c_int protocol, c_int dxlCommResult, const uint8_t &dxlError);
 	};

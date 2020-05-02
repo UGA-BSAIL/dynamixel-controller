@@ -6,13 +6,25 @@
 
 using namespace dynio;
 
+class test {
+public:
+	DynamixelIO dxlIO;
+	dyn_ptr motor;
 
+	explicit test(const string &device) {
+		dxlIO = DynamixelIO(device);
+		motor = dxlIO.newAX12(1);
+		auto motor2 = dxlIO.newMX28(2);
+	}
+
+	void run() {
+		motor->torqueEnable();
+		motor->getPosition();
+	}
+};
 
 int main() {
-	DynamixelIO dxlIO("");
-	auto motor = dxlIO.newMX64(1,2);
-	motor->writeControlTable("Torque_Enable", 1);
-	motor->torqueEnable();
-	motor->setVelocityMode();
-	motor->setVelocity(200);
+	test a("");
+	a.run();
+
 }
