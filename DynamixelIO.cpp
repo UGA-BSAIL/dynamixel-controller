@@ -123,4 +123,24 @@ namespace dynio {
 		                                                          "DynamixelJSON/MX106.json", protocol,
 		                                                          controlTableProtocol));
 	}
+
+	DynamixelMotor *DynamixelIO::newAX12Raw(const int &dxlID) {
+		return new DynamixelMotor(dxlID, this, "DynamixelJSON/AX12.json");
+	}
+
+	DynamixelMotor *DynamixelIO::newMX12Raw(const int &dxlID) {
+		return new DynamixelMotor(dxlID, this, "DynamixelJSON/MX12.json");
+	}
+
+	DynamixelMotor *DynamixelIO::newMX28Raw(const int &dxlID, const int &protocol, const int &controlTableProtocol) {
+		return new DynamixelMotor(dxlID, this, "DynamixelJSON/MX28.json", protocol, controlTableProtocol);
+	}
+
+	DynamixelMotor *DynamixelIO::newMX64Raw(const int &dxlID, const int &protocol, const int &controlTableProtocol) {
+		return new DynamixelMotor(dxlID, this, "DynamixelJSON/MX64.json", protocol, controlTableProtocol);
+	}
+
+	DynamixelMotor *DynamixelIO::newMX106Raw(const int &dxlID, const int &protocol, const int &controlTableProtocol) {
+		return new DynamixelMotor(dxlID, this, "DynamixelJSON/MX106.json", protocol, controlTableProtocol);
+	}
 }
